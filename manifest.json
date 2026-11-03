@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "WAExport",
+    "version": "1.0.0",
+    "description": "Exporte conversas do WhatsApp Web para HTML, Excel, CSV ou JSON.",
+    "permissions": ["scripting", "activeTab", "downloads", "storage"],
+    "host_permissions": ["*://web.whatsapp.com/*"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "WAExport"
+    },
+    "icons": {
+        "16": "icons/icon-16.png",
+        "48": "icons/icon-48.png",
+        "128": "icons/icon-128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://web.whatsapp.com/*"],
+            "js": ["content.js"],
+            "run_at": "document_idle"
+        }
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "scripts": ["background.js"]
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "waexport@exemplo.com",
+            "strict_min_version": "109.0"
+        }
+    }
+}

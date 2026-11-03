@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WAExport</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            }
+
+            body {
+                width: 380px;
+                background: #e8f0eb;
+                padding: 12px;
+                color: #1f2d24;
+            }
+
+            .card {
+                background: #fff;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }
+
+            .header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .header-left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .logo {
+                width: 36px;
+                height: 36px;
+                background: #e8f5e9;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+            }
+
+            .title {
+                font-size: 14px;
+                font-weight: 600;
+                color: #111827;
+            }
+
+            .subtitle {
+                font-size: 11px;
+                color: #6b7280;
+                margin-top: 2px;
+            }
+
+            .status {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 11px;
+                color: #059669;
+                background: #ecfdf5;
+                padding: 4px 8px;
+                border-radius: 12px;
+                font-weight: 500;
+            }
+
+            .status-dot {
+                width: 6px;
+                height: 6px;
+                background: #059669;
+                border-radius: 50%;
+            }
+
+            .section {
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+
+            .section-title {
+                font-size: 12px;
+                font-weight: 600;
+                color: #111827;
+                margin-bottom: 12px;
+            }
+
+            .format-group {
+                display: flex;
+                gap: 16px;
+                align-items: center;
+            }
+
+            .format-label {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                color: #374151;
+                cursor: pointer;
+            }
+
+            .format-label input[type="radio"] {
+                accent-color: #059669;
+                width: 16px;
+                height: 16px;
+            }
+
+            .select-chat {
+                width: 100%;
+                padding: 10px 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                font-size: 13px;
+                color: #374151;
+                background: #fff;
+                margin-bottom: 12px;
+            }
+
+            .date-row {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+
+            .date-input {
+                flex: 1;
+                padding: 10px 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                font-size: 13px;
+                color: #374151;
+            }
+
+            .date-separator {
+                color: #9ca3af;
+                font-size: 14px;
+            }
+
+            .limit-row {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+
+            .limit-input {
+                flex: 1;
+                padding: 10px 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                font-size: 13px;
+                color: #374151;
+            }
+
+            .limit-type {
+                padding: 10px 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                font-size: 13px;
+                color: #374151;
+                background: #fff;
+            }
+
+            .export-mode {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 8px;
+            }
+
+            .mode-options {
+                display: flex;
+                gap: 16px;
+            }
+
+            .mode-label {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                color: #374151;
+                cursor: pointer;
+            }
+
+            .mode-label input[type="radio"] {
+                accent-color: #059669;
+                width: 16px;
+                height: 16px;
+            }
+
+            .media-section {
+                background: #fffbeb;
+                border: 1px solid #fde68a;
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .media-left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .media-title {
+                font-size: 12px;
+                font-weight: 600;
+                color: #92400e;
+            }
+
+            .media-icons {
+                display: flex;
+                gap: 12px;
+                margin-top: 4px;
+                font-size: 11px;
+                color: #92400e;
+            }
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 40px;
+                height: 22px;
+            }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #d1d5db;
+                transition: 0.3s;
+                border-radius: 22px;
+            }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 16px;
+                width: 16px;
+                left: 3px;
+                bottom: 3px;
+                background-color: #fff;
+                transition: 0.3s;
+                border-radius: 50%;
+            }
+
+            input:checked + .slider {
+                background-color: #059669;
+            }
+
+            input:checked + .slider:before {
+                transform: translateX(18px);
+            }
+
+            .btn-export {
+                width: 100%;
+                padding: 14px;
+                background: #059669;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                transition: background 0.2s;
+            }
+
+            .btn-export:hover {
+                background: #047857;
+            }
+
+            .btn-export:disabled {
+                background: #9ca3af;
+                cursor: not-allowed;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="header">
+                <div class="header-left">
+                    <div class="logo">💬</div>
+                    <div>
+                        <div class="title">WAExport</div>
+                        <div class="subtitle">WhatsApp Chat Export</div>
+                    </div>
+                </div>
+                <div class="status">
+                    <span class="status-dot"></span>
+                    <span>Ready</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Choose file format</div>
+                <div class="format-group">
+                    <label class="format-label"> <input type="radio" name="format" value="html" checked /> HTML </label>
+                    <label class="format-label"> <input type="radio" name="format" value="excel" /> Excel </label>
+                    <label class="format-label"> <input type="radio" name="format" value="csv" /> CSV </label>
+                    <label class="format-label"> <input type="radio" name="format" value="json" /> JSON </label>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Select chat</div>
+                <select id="chatSelect" class="select-chat">
+                    <option value="current">Current chat (Open)</option>
+                    <option value="all">All chats (Not recommended)</option>
+                </select>
+
+                <div class="section-title">Choose date</div>
+                <div class="date-row">
+                    <input type="date" id="startDate" class="date-input" placeholder="Start date" />
+                    <span class="date-separator">→</span>
+                    <input type="date" id="endDate" class="date-input" placeholder="End date" />
+                </div>
+
+                <div class="section-title">Limit messages (or days)</div>
+                <div class="limit-row">
+                    <input type="number" id="limitValue" class="limit-input" placeholder="e.g. 400" min="1" />
+                    <select id="limitType" class="limit-type">
+                        <option value="messages">Messages</option>
+                        <option value="days">Days</option>
+                    </select>
+                </div>
+
+                <div class="export-mode">
+                    <span class="section-title" style="margin-bottom: 0">Export mode</span>
+                    <div class="mode-options">
+                        <label class="mode-label"> <input type="radio" name="mode" value="safe" /> Safe Mode </label>
+                        <label class="mode-label"> <input type="radio" name="mode" value="quick" checked /> Quick Export </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-section">
+                <div class="media-left">
+                    <div>
+                        <div class="media-title">Export media</div>
+                        <div class="media-icons">
+                            <span>📷 Photos</span>
+                            <span>🎬 Videos</span>
+                            <span>📄 Files</span>
+                        </div>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="mediaToggle" disabled />
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <button id="exportBtn" class="btn-export">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Export chat
+            </button>
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
